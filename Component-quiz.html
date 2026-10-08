@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Component & Pros Quiz</title> 
+  </head>
+  <body>
+    <div class="js-container"></div>
+
+    <script src="react-basics.js"></script> 
+
+    <script src="https://unpkg.com/supersimpledev/react.js"></script> 
+    <script src="https://unpkg.com/supersimpledev/react-dom.js"></script>
+
+    <script src="https://unpkg.com/supersimpledev/babel.js"></script>
+    <script type="text/babel"> 
+        function MyWebsite(){
+          return(
+            <>
+                <p> Hello welcome to my website </p>
+            </>
+          )
+        };
+
+        function UserInput(){
+          return(
+            <div>
+              <input  placeholder="Enter your email" size="30"/>
+            </div>
+          )
+        };
+
+
+        function UserPassword(){
+          return(
+            <div>
+              <input  placeholder="Enter your password" size="30"/>
+            </div>
+          )
+        };
+
+        function UserButton(){
+          return(
+            <>
+              <button> Login </button>
+              <button> Signup </button>
+            </>
+          )
+        };
+
+        function App(){
+          return(
+          <>
+          <MyWebsite />
+          <UserInput />
+          <UserPassword />
+          <UserButton />
+          </>
+        )};
+
+      const container = document.querySelector('.js-container');
+      ReactDOM.createRoot(container).render(<App />); 
+    </script>
+  </body>
+</html> 
