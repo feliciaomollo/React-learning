@@ -73,24 +73,26 @@
         function sendMessage(){
           //console.log("Hello world!")
           chatMessages.push({
-            message: "Hello Guys!"
-            sender: "user"
+            message: "Hello Guys!",
+            sender: "user",
             id: crypto.randomUUID()
-          })
+          });
+
+          console.log(chatMessages)
         }
 
         return (
           <>
-          <button onClick={sendMessage}> Send Message</button>
-            {chatMessages.map((chatMessage) => {
-              return (
-                <ChatMessage
-                  message={chatMessage.message}
-                  sender={chatMessage.sender}
-                  key={chatMessage.id}
-                />
-              );
-            })}
+            <button onClick={sendMessage}> Send Message</button>
+              {chatMessages.map((chatMessage) => {
+                return (
+                  <ChatMessage
+                    message={chatMessage.message}
+                    sender={chatMessage.sender}
+                    key={chatMessage.id}
+                  />
+                );
+              })}
           </>
         );
       }
