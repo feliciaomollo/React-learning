@@ -9,33 +9,48 @@
 
     <script src="https://unpkg.com/supersimpledev/react.js"></script>
     <script src="https://unpkg.com/supersimpledev/react-dom.js"></script>
+
+    <script src ="https://unpkg.com/supersimpledev/chatbot.js"> </script>
     <script src="https://unpkg.com/supersimpledev/babel.js"></script>
 
     <script type="text/babel">
 
 //use state to save data that changes overtime
-      function ChatInput(chatMessages, sendChatmessages) {
+      function ChatInput({ chatMessages, setChatMessages }) {
         const[inputText, setInputText] = React.useState('');
         function saveInputText(event){
             setInputText(event.target.value);
         }
 
         function sendMessage(){
-           setChatMessages([// using the spread operator, we will copy the contents of chatMessages since we do not modify directly
-                ...chatMessages, //we made copy of the chat messages array
+          const newChatMessages =[// using the spread operator, we will copy the contents of chatMessages since we do not modify directly
+              ...chatMessages, //we made copy of the chat messages array
                 {
-                    message: "Hello Guys",
+                    message: inputText,
                     sender: "user",
                     id: crypto.randomUUID()
                 }
+            ];
+          setChatMessages(newChatMessages);
+
+          const response = Chatbot.getResponse(inputText);
+          setChatMessages([// using the spread operator, we will copy the contents of chatMessages since we do not modify directly
+              ...newChatMessages, //we made copy of the chat messages array
+                {
+                    message: response,
+                    sender: "robot",
+                    id: crypto.randomUUID()
+                }
             ]);
-        };
+          setInputText(''); //updates input text to empty
+        }
         return (
           <>
             <input
               placeholder="Type your message"
               size="30"
               onChange ={saveInputText}
+              value ={inputText} //updates the textbox to be empty after running the updater function
             />
             <button onClick ={sendMessage}>Send</button>
           </>
