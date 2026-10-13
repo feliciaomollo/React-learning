@@ -3,6 +3,11 @@
   <head>
     <title>Chatbot</title>
     <style>
+        body{
+          font-family: arial;
+          margin-top: 0px;
+          margin-bottom: 0px;
+        }
         .send-button{
             background-color: rgb(25, 138, 71);
             color: white;
@@ -17,9 +22,48 @@
             padding: 10px 15px;
             border-radius: 10px;
             border-width: 1px;
+            margin-bottom: 60px;
+
+            flex-grow: 1; 
         }
         .chatinput-container{
+          display: flex; /*preventing it from growing larger than the specified value while allowing it to shrink dynamically on smaller screens. */
+        }
+        .app-container{
+          max-width: 600px; /* preventing it from growing larger than the specified value while allowing it to shrink dynamically on smaller screens. */
+          margin: auto;
+
+          height: 100vh;
+          display:flex;
+          flex-direction: column;
+        }
+        .chat-message-user{
           display: flex;
+          justify-content: end;
+          align-items: start;
+        }
+        .chat-message-robot{
+          display: flex;
+          justify-content: start;
+          align-items: start;
+        }
+        .chat-message-text{
+          background-color:aliceblue;
+          padding: 15px 20px;
+          border-radius: 10px;
+          margin-right: 10px;
+          margin-left:10px;
+          margin-bottom: 20px;
+          max-width: 300px;
+        }
+        .chat-message-profile{
+          width: 50px;
+        }
+        .chat-messages-container{
+          flex-grow:1;
+          margin-top: 20px;
+          overflow: scroll;
+          scrollbar-width: none;
         }
     </style>
   </head>
@@ -78,19 +122,21 @@
         );
       }
 
-
+//ternary operator is used as an if-else statatement in the jsx. if sender = user then name it chat message user else name it chat message robot
       function ChatMessage({ message, sender }) {
+
         return (
-          <div>
+          <div className={sender ==='user'? 'chat-message-user': 'chat-message-robot'}> 
 
             {sender === "robot" && (
-              <img src="robot.png" width="50" />
+              <img src="robot.png" className="chat-message-profile"/>
             )}
-
-            {message}
+            <div className= "chat-message-text">
+              {message}
+            </div>
 
             {sender === "user" && (
-              <img src="user.png" width="50" />
+              <img src="user.png" className="chat-message-profile"/>
             )}
 
           </div>
@@ -98,9 +144,12 @@
       }
 
 
-      function ChatMessages({chatMessages}) {
+      function ChatMessages({chatMessages}) { //usually on top of a component and not inside any if stsateent or function
+        React.useEffect(()=>{
+          console.log('updated')
+        });
         return (
-          <>
+          <div className="chat-messages-container">
               {chatMessages.map((chatMessage) => {
                 return (
                   <ChatMessage
@@ -110,7 +159,7 @@
                   />
                 );
               })}
-          </>
+          </div>
         );
       }
 
@@ -141,15 +190,16 @@
             ]
         );
         return (
-          <>
+          <div className="app-container"> 
+            <ChatMessages 
+              chatMessages={chatMessages} 
+            />
+
             <ChatInput 
                 chatMessages={chatMessages} 
                 setChatMessages ={setChatMessages}
             />
-            <ChatMessages 
-              chatMessages={chatMessages} 
-            />
-          </>
+          </div>
         );
       }
 
