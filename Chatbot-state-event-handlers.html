@@ -145,11 +145,17 @@
 
 
       function ChatMessages({chatMessages}) { //usually on top of a component and not inside any if stsateent or function
+        const chatMessagesRef = React.useRef(null);
+       
         React.useEffect(()=>{
-          console.log('updated')
-        });
+          const containerElem = chatMessagesRef.current;
+          if (containerElem){
+            containerElem.scrollTop = containerElem.scrollHeight;
+          }
+        }, [chatMessages]); //runs everytime our data changes such as chatmessages and its called dependancy array
+        
         return (
-          <div className="chat-messages-container">
+          <div className="chat-messages-container" ref = {chatMessagesRef}>
               {chatMessages.map((chatMessage) => {
                 return (
                   <ChatMessage
