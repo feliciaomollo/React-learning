@@ -1,0 +1,11 @@
+
+        .app-container{
+          max-width: 600px; /* preventing it from growing larger than the specified value while allowing it to shrink dynamically on smaller screens. */
+          margin: auto;
+
+          height: 100vh;
+          display:flex;
+          flex-direction: column;
+        }
+        
+        
