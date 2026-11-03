@@ -4,7 +4,7 @@ import { Header } from '../components/Header';
 import './HomePage.css';
 
 
-export function HomePage() {
+export function HomePage({ cart }) {
     /*fetch ('http://localhost:3000/api/products')
     .then((response)=>{
         response.json()
@@ -14,17 +14,11 @@ export function HomePage() {
         a dependency array lets us control when useeffect runs so [] only runs it once
     });*/
     const [products, setProducts] = useState([]); //data and the updater function(update value and regenerate HTML)
-    const [cart, setCart] = useState([]);
 
     useEffect(()=>{
         axios.get ('http://localhost:3000/api/products')
             .then((response) => { 
                 setProducts(response.data);
-            });
-
-          axios.get ('http://localhost:3000/api/cart-items')
-            .then((response) => { 
-                setCart(response.data);
             });
     }, []);//dependency array lets us control when useeffect runs so [] only runs it once
 
