@@ -1,9 +1,20 @@
+import axios from 'axios';
 import { Header } from '../components/Header';
 import { products } from '../../starting-code/data/products'
 import './HomePage.css';
 
 
 export function HomePage() {
+    /*fetch ('http://localhost:3000/api/products')
+    .then((response)=>{
+        response.json()
+        }).then((data)=>{ //products data from the backend which will be an array of products
+        console.log(data);
+    });*/
+    axios.get ('http://localhost:3000/api/products')
+    .then((response)=>{
+        response.data()
+    });
     return (
         <>
             <title> Ecommerce Site</title>
@@ -25,14 +36,14 @@ export function HomePage() {
 
                         <div className="product-rating-container">
                             <img className="product-rating-stars"
-                                src="images/ratings/rating-45.png" />
+                                src={`images/ratings/rating-${product.rating.stars * 10}.png`}/>
                             <div className="product-rating-count link-primary">
-                                87
+                                {product.rating.count}
                             </div>
                         </div>
 
                         <div className="product-price">
-                            $10.90
+                            {(product.priceCents /100).toFixed(2)}
                         </div>
 
                         <div className="product-quantity-container">
