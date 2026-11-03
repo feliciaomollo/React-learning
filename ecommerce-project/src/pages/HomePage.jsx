@@ -1,6 +1,6 @@
 import axios from 'axios';
+import { useEffect, useState } from 'react';
 import { Header } from '../components/Header';
-import { products } from '../../starting-code/data/products'
 import './HomePage.css';
 
 
@@ -10,11 +10,18 @@ export function HomePage() {
         response.json()
         }).then((data)=>{ //products data from the backend which will be an array of products
         console.log(data);
+        useEffect lets us control when a code is running.
+        a dependency array lets us control when useeffect runs so [] only runs it once
     });*/
-    axios.get ('http://localhost:3000/api/products')
-    .then((response)=>{
-        response.data()
-    });
+    const [products, setProducts] = useState([]); //data and the updater function(update value and regenerate HTML)
+    
+    useEffect(()=>{
+         axios.get ('http://localhost:3000/api/products')
+            .then((response) => { 
+                setProducts(response.data);
+            });
+    }, []);//dependency array lets us control when useeffect runs so [] only runs it once
+   
     return (
         <>
             <title> Ecommerce Site</title>
