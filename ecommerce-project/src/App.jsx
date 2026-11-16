@@ -11,10 +11,11 @@ function App() {
   const [cart, setCart] = useState([]);
 
   useEffect(()=>{ //we have lift the state up inorder to share this between two pages
-          axios.get ('/api/cart-items?expand=product') //query parameter
-            .then((response) => { 
-                setCart(response.data);
-            });
+    const fetchAppData = async () =>{
+      const response = await axios.get ('/api/cart-items?expand=product') //query parameter
+      setCart(response.data);
+    };   
+    fetchAppData();     
   }, []);
 
   return (
